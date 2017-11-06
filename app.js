@@ -97,6 +97,23 @@ app.get('/allQuestion/:topic', (req,res)=>{
 	})
 })
 
+app.post('/allQuestion', (req,res)=>{
+	questions.find({topic: req.body.topic_id}, (err,docs)=>{
+		if(!err){
+			res.json({
+				code: 200,
+				count: docs.length,
+				questions: docs
+			})
+		}else{
+			res.json({
+				code: 400,
+				error: err
+			})
+		}
+	})
+})
+
 app.listen(port, function(){
 	console.log('Server started');
 });
